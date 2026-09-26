@@ -1,0 +1,29 @@
+{
+  "exam": "2027-05-11",
+  "start": "2026-09-28",
+  "targetHoursPerDay": 5.5,
+  "plan": [
+    ["2026-09-28","Economics","learn"],["2026-10-12","Financial Statement Analysis","learn"],["2026-11-02","Corporate Issuers","learn"],
+    ["2026-11-09","Equity Investments","learn"],["2026-11-23","Derivatives","learn"],["2026-12-07","Alternative Investments","learn"],
+    ["2026-12-14","Portfolio Management","learn"],["2026-12-28","Ethics","learn"],["2027-01-11","Quant + Fixed Income refresh / buffer","learn"],
+    ["2027-01-25","Revision: Ethics","revise"],["2027-02-01","Revision: FSA part 1","revise"],["2027-02-08","Revision: FSA part 2 + Corporate Issuers","revise"],
+    ["2027-02-15","Revision: Quant","revise"],["2027-02-22","Revision: Fixed Income","revise"],["2027-03-01","Revision: Equity + Economics","revise"],
+    ["2027-03-08","Revision: Derivatives + Alternatives","revise"],["2027-03-15","Revision: Portfolio Mgmt + weakest topic","revise"],
+    ["2027-03-22","Revision: mixed tests + 2 weakest topics","revise"],["2027-03-29","Mock 1 week","mock"],["2027-04-05","Mock 2 + formula sheet","mock"],
+    ["2027-04-12","Mocks 3 & 4","mock"],["2027-04-19","Mocks 5 & 6","mock"],["2027-04-26","Mock 7 (CFA Institute) + Ethics re-read","mock"],
+    ["2027-05-03","Light review only","mock"]
+  ],
+  "topics": [
+    {"name":"Ethical & Professional Standards","short":"Ethics","weight":"10–15%","mid":12.5,"status":"Not started","progress":0},
+    {"name":"Quantitative Methods","short":"Quant","weight":"11–14%","mid":12.5,"status":"Done","progress":100},
+    {"name":"Economics","short":"Econ","weight":"6–9%","mid":7.5,"status":"Not started","progress":0},
+    {"name":"Financial Statement Analysis","short":"FSA","weight":"11–14%","mid":12.5,"status":"Not started","progress":0},
+    {"name":"Corporate Issuers","short":"Corp Issuers","weight":"6–9%","mid":7.5,"status":"Not started","progress":0},
+    {"name":"Equity Investments","short":"Equity","weight":"11–14%","mid":12.5,"status":"Not started","progress":0},
+    {"name":"Fixed Income","short":"Fixed Income","weight":"11–14%","mid":12.5,"status":"Done","progress":100},
+    {"name":"Derivatives","short":"Derivatives","weight":"6–9%","mid":7.5,"status":"Not started","progress":0},
+    {"name":"Alternative Investments","short":"Alts","weight":"6–9%","mid":7.5,"status":"Not started","progress":0},
+    {"name":"Portfolio Management","short":"PM","weight":"8–12%","mid":10,"status":"Not started","progress":0}
+  ],
+  "log": []
+}
