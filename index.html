@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shubhangi's CFA Level I Tracker</title>
+<style>
+  :root{--bg:#f6f5f1;--surface:#fff;--ink:#1a1a19;--ink2:#5c5b55;--muted:#8a897f;--line:#e4e2da;
+    --s1:#2a78d6;--s1-soft:#cde2fb;--s2:#eb6834;--good:#0ca30c;--good-ink:#006300;--crit:#d03b3b;--warn:#eda100;--radius:14px}
+  @media (prefers-color-scheme:dark){:root{--bg:#121211;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#8f8e85;--line:#2e2e2b;--s1:#3987e5;--s1-soft:#1c3a5e;--s2:#d95926;--good-ink:#0ca30c}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+  header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px;margin-bottom:18px}
+  h1{font-size:24px;margin:0}
+  .sub{color:var(--ink2);font-size:14px}
+  h2{font-size:16px;margin:0 0 12px}
+  .grid{display:grid;gap:14px}
+  .kpis{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .two{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+  .kpi .label{color:var(--ink2);font-size:13px}
+  .kpi .val{font-size:28px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+  .kpi .note{color:var(--muted);font-size:12px}
+  .today{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .today .plan{font-size:18px;font-weight:600}
+  .pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid var(--line);color:var(--ink2)}
+  form{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));align-items:end}
+  label{font-size:13px;color:var(--ink2);display:grid;gap:4px}
+  input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 10px;width:100%}
+  textarea{min-height:40px}
+  .chk{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ink)}
+  .chk input{width:20px;height:20px}
+  button{font:inherit;font-weight:600;border:0;border-radius:10px;padding:10px 16px;background:var(--s1);color:#fff;cursor:pointer}
+  button.ghost{background:transparent;color:var(--ink2);border:1px solid var(--line)}
+  .msg{font-size:13px;color:var(--good-ink);min-height:18px}
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  svg text{fill:var(--muted);font-size:11px}
+  .axis line,.grid-l{stroke:var(--line)}
+  .legend{display:flex;gap:14px;font-size:12px;color:var(--ink2);margin-top:6px}
+  .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+  .tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--surface);font-size:12px;padding:6px 9px;border-radius:8px;opacity:0;transition:opacity .1s;z-index:9;white-space:nowrap}
+  .topics{display:grid;gap:10px}
+  .trow{display:grid;grid-template-columns:minmax(110px,1.2fr) 3fr auto;gap:10px;align-items:center;font-size:14px}
+  .trow .name{font-weight:600}
+  .trow .w{color:var(--muted);font-size:12px;font-weight:400}
+  .bar{height:12px;background:var(--line);border-radius:6px;overflow:hidden;cursor:pointer}
+  .bar > span{display:block;height:100%;background:var(--s1);border-radius:6px 4px 4px 6px}
+  .status{font-size:12px;border:1px solid var(--line);border-radius:8px;padding:4px 6px;background:var(--bg);width:auto}
+  .timeline{display:flex;height:34px;border-radius:10px;overflow:hidden;position:relative;margin-top:6px}
+  .timeline div{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;border-right:2px solid var(--surface)}
+  .tl-now{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--ink);border-radius:2px}
+  .tl-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:6px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--ink2);font-weight:600}
+  td.num{font-variant-numeric:tabular-nums;text-align:right}
+  .scroll{max-height:360px;overflow:auto}
+  .heat{display:grid;grid-template-rows:repeat(7,12px);grid-auto-flow:column;grid-auto-columns:12px;gap:3px;overflow-x:auto;padding-bottom:4px}
+  .heat span{border-radius:3px;background:var(--line)}
+  .muted{color:var(--muted);font-size:13px}
+  .ok{color:var(--good-ink)}.bad{color:var(--crit)}
+  section{margin-top:14px}
+  footer{margin-top:24px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><h1>CFA Level I Tracker</h1><div class="sub">Shubhangi · Exam window 11–17 May 2027</div></div>
+    <div class="sub" id="asof"></div>
+  </header>
+
+  <div class="grid kpis" id="kpis"></div>
+
+  <section class="card">
+    <div class="today">
+      <div><div class="muted">Today's plan</div><div class="plan" id="todayPlan"></div></div>
+      <span class="pill" id="phasePill"></span>
+    </div>
+    <div class="timeline" id="timeline"></div>
+    <div class="tl-labels"><span>28 Sep</span><span>Learn → 24 Jan</span><span>Revise → 28 Mar</span><span>Mocks → 10 May</span></div>
+  </section>
+
+  <section class="card">
+    <h2>Log a day</h2>
+    <form id="f">
+      <label>Date<input type="date" name="date" required></label>
+      <label>Topic studied<select name="topic" id="topicSel"></select></label>
+      <label>Hours<input type="number" name="hours" min="0" max="16" step="0.25" inputmode="decimal"></label>
+      <label>Questions attempted<input type="number" name="attempted" min="0" step="1" inputmode="numeric"></label>
+      <label>Questions correct<input type="number" name="correct" min="0" step="1" inputmode="numeric"></label>
+      <label class="chk"><input type="checkbox" name="onPlan"> Followed today's plan</label>
+      <label style="grid-column:1/-1">Notes<textarea name="notes" placeholder="What went well, what was hard…"></textarea></label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="submit">Save day</button><button type="button" class="ghost" id="del">Delete this day</button></div>
+      <div class="msg" id="msg"></div>
+    </form>
+  </section>
+
+  <div class="grid two" style="margin-top:14px">
+    <section class="card" style="margin:0"><h2>Study hours: you vs. plan pace</h2><div id="hoursChart"></div>
+      <div class="legend"><span><i style="background:var(--s1)"></i>Your cumulative hours</span><span><i style="background:var(--muted)"></i>Plan pace (5.5 h/day)</span></div></section>
+    <section class="card" style="margin:0"><h2>Accuracy trend (7-day rolling)</h2><div id="accChart"></div><div class="muted" id="accNote"></div></section>
+  </div>
+
+  <div class="grid two" style="margin-top:14px">
+    <section class="card" style="margin:0"><h2>Topics covered</h2><div class="topics" id="topics"></div>
+      <div class="muted" style="margin-top:10px">Change a topic's status from its menu. Tap its bar to set % done.</div></section>
+    <section class="card" style="margin:0"><h2>Accuracy by topic</h2><div id="topicAcc"></div></section>
+  </div>
+
+  <section class="card"><h2>Consistency</h2><div class="heat" id="heat"></div>
+    <div class="muted" style="margin-top:6px">Each square is a day (columns are weeks). Darker means more hours.</div></section>
+
+  <section class="card"><h2>Daily log</h2><div class="scroll"><table id="logTable"></table></div></section>
+
+  <footer>Your entries save on this device. Updates you send Hyv on WhatsApp are added for every device.
+    <button class="ghost" id="exp" style="padding:4px 10px;font-size:12px">Download my data</button></footer>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+const KEY='cfa-tracker-v1';
+const $=s=>document.querySelector(s);
+const DAY=864e5;
+const toD=s=>new Date(s+'T00:00:00');
+const iso=d=>{const z=new Date(d.getTime()-d.getTimezoneOffset()*6e4);return z.toISOString().slice(0,10)};
+const fmtD=s=>toD(s).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+const pct=x=>x==null||isNaN(x)?'–':Math.round(x*100)+'%';
+let base,local=JSON.parse(localStorage.getItem(KEY)||'{"log":{},"topics":{}}');
+const save=()=>localStorage.setItem(KEY,JSON.stringify(local));
+
+function merged(){
+  const byDate={};base.log.forEach(r=>byDate[r.date]=r);
+  Object.entries(local.log).forEach(([d,r])=>{if(r===null)delete byDate[d];else byDate[d]=r});
+  const log=Object.values(byDate).sort((a,b)=>a.date<b.date?-1:1);
+  const topics=base.topics.map(t=>({...t,...(local.topics[t.name]||{})}));
+  return {log,topics};
+}
+function planFor(ds){let p=null;for(const r of base.plan) if(ds>=r[0]) p=r;return p}
+function dayExtra(ds){const w=toD(ds).getDay();return w===6?' · Sat: timed topic test':w===0?' · Sun: weekly review':''}
+
+const tip=$('#tip');
+function showTip(e,html){tip.innerHTML=html;tip.style.opacity=1;const x=Math.min(e.clientX+12,innerWidth-tip.offsetWidth-8);tip.style.left=x+'px';tip.style.top=(e.clientY-36)+'px'}
+function hideTip(){tip.style.opacity=0}
+
+function lineChart(el,series,{yMax,yFmt,xMin,xMax,tipFmt}){
+  const W=520,H=220,P={l:40,r:12,t:10,b:24};
+  const x=d=>P.l+(d-xMin)/(xMax-xMin)*(W-P.l-P.r), y=v=>H-P.b-(v/yMax)*(H-P.t-P.b);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
+  for(let i=0;i<=4;i++){const v=yMax*i/4;s+=`<line class="grid-l" x1="${P.l}" x2="${W-P.r}" y1="${y(v)}" y2="${y(v)}"/><text x="${P.l-6}" y="${y(v)+4}" text-anchor="end">${yFmt(v)}</text>`}
+  const months=[];for(let d=new Date(xMin);d<=xMax;d=new Date(d.getFullYear(),d.getMonth()+1,1)){if(d>=xMin)months.push(d)}
+  months.forEach(m=>s+=`<text x="${x(m)}" y="${H-6}" text-anchor="middle">${m.toLocaleDateString('en-GB',{month:'short'})}</text>`);
+  series.forEach(se=>{if(!se.pts.length)return;
+    const d=se.pts.map((p,i)=>(i?'L':'M')+x(p[0]).toFixed(1)+' '+y(p[1]).toFixed(1)).join(' ');
+    s+=`<path d="${d}" fill="none" stroke="${se.color}" stroke-width="2" ${se.dash?'stroke-dasharray="4 4"':''} stroke-linecap="round" stroke-linejoin="round"/>`;
+    if(se.dots&&se.pts.length<60) se.pts.forEach(p=>s+=`<circle cx="${x(p[0])}" cy="${y(p[1])}" r="3.5" fill="${se.color}" stroke="var(--surface)" stroke-width="2"/>`);
+  });
+  s+=`<line id="xh" y1="${P.t}" y2="${H-P.b}" stroke="var(--muted)" stroke-width="1" opacity="0"/><rect x="${P.l}" y="0" width="${W-P.l-P.r}" height="${H}" fill="transparent"/></svg>`;
+  el.innerHTML=s;
+  const svg=el.querySelector('svg'),xh=svg.querySelector('#xh'),main=series.find(se=>se.dots);
+  svg.addEventListener('mousemove',e=>{if(!main||!main.pts.length)return;const r=svg.getBoundingClientRect();const px=(e.clientX-r.left)/r.width*W;
+    let best=main.pts[0];main.pts.forEach(p=>{if(Math.abs(x(p[0])-px)<Math.abs(x(best[0])-px))best=p});
+    xh.setAttribute('x1',x(best[0]));xh.setAttribute('x2',x(best[0]));xh.setAttribute('opacity',1);showTip(e,tipFmt(best))});
+  svg.addEventListener('mouseleave',()=>{xh.setAttribute('opacity',0);hideTip()});
+}
+
+function render(){
+  const {log,topics}=merged();
+  const today=iso(new Date()),exam=toD(base.exam),start=toD(base.start);
+  $('#asof').textContent='Today: '+new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+  // KPIs
+  const hours=log.reduce((a,r)=>a+(+r.hours||0),0), days=log.filter(r=>r.hours!==''&&r.hours!=null).length;
+  const att=log.reduce((a,r)=>a+(+r.attempted||0),0), cor=log.reduce((a,r)=>a+(+r.correct||0),0);
+  const cut=iso(new Date(Date.now()-7*DAY)), l7=log.filter(r=>r.date>cut&&r.date<=today);
+  const a7=l7.reduce((a,r)=>a+(+r.attempted||0),0), c7=l7.reduce((a,r)=>a+(+r.correct||0),0);
+  const cover=topics.reduce((a,t)=>a+t.mid*t.progress/100,0)/topics.reduce((a,t)=>a+t.mid,0);
+  const onPlan=log.filter(r=>r.onPlan).length;
+  const daysLeft=Math.max(0,Math.ceil((exam-toD(today))/DAY));
+  const elapsed=Math.max(0,Math.min(Math.floor((toD(today)-start)/DAY)+1,Math.round((exam-start)/DAY)));
+  const k=[['Days to exam',daysLeft,'11 May 2027'],['Syllabus covered',pct(cover),'weighted by exam weight'],
+    ['Topics done',topics.filter(t=>t.status==='Done'||t.status==='Revised').length+' / 10',''],
+    ['Hours studied',hours.toFixed(1),elapsed?`plan pace: ${(elapsed*base.targetHoursPerDay).toFixed(0)} h`:'plan starts 28 Sep'],
+    ['Days on plan',days?pct(onPlan/days):'–',days+' days logged'],
+    ['Accuracy · last 7 days',a7?pct(c7/a7):'–',att?'overall '+pct(cor/att):'no questions logged yet']];
+  $('#kpis').innerHTML=k.map(([l,v,n])=>`<div class="card kpi"><div class="label">${l}</div><div class="val">${v}</div><div class="note">${n}</div></div>`).join('');
+  // today
+  const p=planFor(today<base.start?base.start:today);
+  $('#todayPlan').textContent=today<base.start?'Plan starts Mon 28 Sep: '+p[1]:p[1]+dayExtra(today);
+  $('#phasePill').textContent={learn:'Phase 1 · Learn',revise:'Phase 2 · Revise',mock:'Phase 3 · Mocks'}[p[2]];
+  // timeline
+  const end=toD('2027-05-11'),tot=end-start,ph=[['Learn','2026-09-28','2027-01-25','var(--s1)'],['Revise','2027-01-25','2027-03-29','var(--s2)'],['Mocks','2027-03-29','2027-05-11','#1baf7a']];
+  $('#timeline').innerHTML=ph.map(([n,a,b,c])=>`<div style="flex:${toD(b)-toD(a)};background:${c}">${n}</div>`).join('')+
+    (toD(today)>=start&&toD(today)<=end?`<span class="tl-now" style="left:${(toD(today)-start)/tot*100}%" title="Today"></span>`:'');
+  // topic select
+  const opts=topics.map(t=>t.name).concat(['Mixed / Mock exam','Rest day']);
+  const sel=$('#topicSel');if(!sel.options.length) sel.innerHTML=opts.map(o=>`<option>${o}</option>`).join('');
+  // hours chart
+  let cum=0;const hp=log.filter(r=>+r.hours>=0&&r.hours!=='').map(r=>{cum+=+r.hours;return [toD(r.date),cum,r]});
+  const xMin=start,xMax=exam,planTot=Math.round((exam-start)/DAY)*base.targetHoursPerDay;
+  lineChart($('#hoursChart'),[{pts:[[start,0],[exam,planTot]],color:'var(--muted)',dash:true},{pts:hp,color:'var(--s1)',dots:true}],
+    {yMax:Math.ceil(Math.max(planTot,cum)/200)*200,yFmt:v=>Math.round(v),xMin,xMax,
+     tipFmt:p=>`<b>${fmtD(p[2].date)}</b> · ${p[1].toFixed(1)} h total (+${(+p[2].hours).toFixed(1)} h)`});
+  // accuracy chart
+  const ap=[];log.forEach((r,i)=>{if(!(+r.attempted))return;const w=log.filter(q=>q.date>iso(new Date(toD(r.date)-7*DAY))&&q.date<=r.date);
+    const A=w.reduce((a,q)=>a+(+q.attempted||0),0),C=w.reduce((a,q)=>a+(+q.correct||0),0);ap.push([toD(r.date),C/A,r])});
+  lineChart($('#accChart'),[{pts:[[start,.7],[exam,.7]],color:'var(--good)',dash:true},{pts:ap,color:'var(--s1)',dots:true}],
+    {yMax:1,yFmt:v=>Math.round(v*100)+'%',xMin,xMax,tipFmt:p=>`<b>${fmtD(p[2].date)}</b> · 7-day ${pct(p[1])} · that day ${p[2].correct}/${p[2].attempted}`});
+  $('#accNote').innerHTML=ap.length>1?(()=>{const d=ap.at(-1)[1]-ap[0][1];return `Since you started: <b class="${d>=0?'ok':'bad'}">${d>=0?'▲':'▼'} ${Math.abs(Math.round(d*100))} pts</b> · dashed line = 70% target`})():'The dashed line is the 70% target. Log your questions attempted and correct to see your trend.';
+  // topics
+  $('#topics').innerHTML=topics.map(t=>`<div class="trow"><div class="name">${t.short} <span class="w">${t.weight}</span></div>
+    <div class="bar" data-t="${t.name}" title="${t.progress}% done"><span style="width:${t.progress}%"></span></div>
+    <select class="status" data-s="${t.name}">${['Not started','In progress','Done','Revised'].map(s=>`<option ${s===t.status?'selected':''}>${s}</option>`).join('')}</select></div>`).join('');
+  document.querySelectorAll('[data-s]').forEach(s=>s.onchange=()=>{const t=s.dataset.s,cur=merged().topics.find(x=>x.name===t);
+    const prog={'Not started':0,'Done':100,'Revised':100}[s.value];local.topics[t]={...(local.topics[t]||{}),status:s.value,progress:prog??Math.max(cur.progress,10)};save();render()});
+  document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{const t=b.dataset.t,cur=merged().topics.find(x=>x.name===t);
+    const v=prompt(`How much of ${t} have you covered? (0–100%)`,cur.progress);if(v===null)return;const n=Math.max(0,Math.min(100,parseInt(v)||0));
+    local.topics[t]={...(local.topics[t]||{}),progress:n,status:n>=100?(cur.status==='Revised'?'Revised':'Done'):n>0?'In progress':'Not started'};save();render()});
+  // topic accuracy
+  const ta=topics.map(t=>{const rs=log.filter(r=>r.topic===t.name);const A=rs.reduce((a,r)=>a+(+r.attempted||0),0),C=rs.reduce((a,r)=>a+(+r.correct||0),0);return {t,A,C,h:rs.reduce((a,r)=>a+(+r.hours||0),0)}});
+  $('#topicAcc').innerHTML='<div class="topics">'+ta.map(({t,A,C,h})=>`<div class="trow" data-tip="<b>${t.short}</b> · ${A?C+'/'+A+' correct':'no questions yet'} · ${h.toFixed(1)} h">
+    <div class="name">${t.short}</div><div class="bar" style="cursor:default"><span style="width:${A?C/A*100:0}%"></span></div><div class="muted" style="min-width:38px;text-align:right">${A?pct(C/A):'–'}</div></div>`).join('')+'</div>';
+  document.querySelectorAll('[data-tip]').forEach(r=>{r.onmousemove=e=>showTip(e,r.dataset.tip);r.onmouseleave=hideTip});
+  // heatmap
+  const hm={};log.forEach(r=>hm[r.date]=+r.hours||0);let cells='';
+  const s0=new Date(start.getTime()-((start.getDay()+6)%7)*DAY);
+  for(let d=s0;d<=exam;d=new Date(d.getTime()+DAY)){const ds=iso(d),h=hm[ds];
+    const bg=h==null?'':h===0?'background:var(--crit);opacity:.35':`background:var(--s1);opacity:${Math.min(1,.25+h/7)}`;
+    cells+=`<span style="${d<start?'visibility:hidden;':''}${bg}" data-tip="<b>${fmtD(ds)}</b> · ${h==null?'not logged':h+' h'}"></span>`}
+  $('#heat').innerHTML=cells;$('#heat').querySelectorAll('span').forEach(c=>{c.onmousemove=e=>showTip(e,c.dataset.tip);c.onmouseleave=hideTip});
+  // table
+  $('#logTable').innerHTML='<tr><th>Date</th><th>Topic</th><th class="num">Hours</th><th class="num">Correct</th><th>Plan</th><th>Notes</th></tr>'+
+    (log.length?[...log].reverse().map(r=>`<tr><td>${fmtD(r.date)}</td><td>${r.topic||''}</td><td class="num">${r.hours??''}</td><td class="num">${+r.attempted?r.correct+'/'+r.attempted:''}</td><td>${r.onPlan?'<span class="ok">✓</span>':'<span class="muted">–</span>'}</td><td>${(r.notes||'').replace(/</g,'&lt;')}</td></tr>`).join(''):'<tr><td colspan="6" class="muted">Nothing logged yet. Your first day is Mon 28 Sep.</td></tr>');
+}
+
+function fillForm(ds){const f=$('#f'),r=merged().log.find(x=>x.date===ds)||{};f.date.value=ds;
+  const p=planFor(ds);const guess=p&&base.topics.find(t=>p[1].includes(t.name)||p[1].includes(t.short));
+  f.topic.value=r.topic||(guess?guess.name:'Mixed / Mock exam');f.hours.value=r.hours??'';f.attempted.value=r.attempted??'';f.correct.value=r.correct??'';f.onPlan.checked=!!r.onPlan;f.notes.value=r.notes||''}
+
+async function init(){
+  try{base=await (await fetch('data.json',{cache:'no-store'})).json()}catch(e){base={exam:'2027-05-11',start:'2026-09-28',targetHoursPerDay:5.5,plan:[],topics:[],log:[]}}
+  render();const f=$('#f');fillForm(iso(new Date()));
+  f.date.onchange=()=>fillForm(f.date.value);
+  f.onsubmit=e=>{e.preventDefault();const a=+f.attempted.value||0,c=+f.correct.value||0;
+    if(c>a){$('#msg').textContent='Correct can’t be more than attempted.';$('#msg').className='msg bad';return}
+    local.log[f.date.value]={date:f.date.value,topic:f.topic.value,hours:f.hours.value===''?'':+f.hours.value,attempted:a,correct:c,onPlan:f.onPlan.checked,notes:f.notes.value.trim()};
+    save();render();$('#msg').className='msg';$('#msg').textContent='Saved ✓ '+fmtD(f.date.value)};
+  $('#del').onclick=()=>{if(!confirm('Delete this day’s entry?'))return;local.log[f.date.value]=null;save();render();fillForm(f.date.value);$('#msg').textContent='Deleted'};
+  $('#exp').onclick=()=>{const b=new Blob([JSON.stringify(merged(),null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='cfa-tracker-data.json';a.click()};
+}
+init();
+</script>
+</body>
+</html>
