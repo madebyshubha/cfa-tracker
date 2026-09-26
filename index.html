@@ -92,7 +92,7 @@
       <label>Questions correct<input type="number" name="correct" min="0" step="1" inputmode="numeric"></label>
       <label class="chk"><input type="checkbox" name="onPlan"> Followed today's plan</label>
       <label style="grid-column:1/-1">Notes<textarea name="notes" placeholder="What went well, what was hard…"></textarea></label>
-      <div style="display:flex;gap:8px;flex-wrap:wrap"><button type="submit">Save day</button><button type="button" class="ghost" id="del">Delete this day</button></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;grid-column:1/-1"><button type="submit">Save day</button><button type="button" class="ghost" id="del">Delete this day</button></div>
       <div class="msg" id="msg"></div>
     </form>
   </section>
@@ -149,7 +149,7 @@ function lineChart(el,series,{yMax,yFmt,xMin,xMax,tipFmt}){
   const x=d=>P.l+(d-xMin)/(xMax-xMin)*(W-P.l-P.r), y=v=>H-P.b-(v/yMax)*(H-P.t-P.b);
   let s=`<svg viewBox="0 0 ${W} ${H}" role="img">`;
   for(let i=0;i<=4;i++){const v=yMax*i/4;s+=`<line class="grid-l" x1="${P.l}" x2="${W-P.r}" y1="${y(v)}" y2="${y(v)}"/><text x="${P.l-6}" y="${y(v)+4}" text-anchor="end">${yFmt(v)}</text>`}
-  const months=[];for(let d=new Date(xMin);d<=xMax;d=new Date(d.getFullYear(),d.getMonth()+1,1)){if(d>=xMin)months.push(d)}
+  const months=[];for(let d=new Date(xMin);d<=xMax;d=new Date(d.getFullYear(),d.getMonth()+1,1)){if(d-xMin>10*DAY)months.push(d)}
   months.forEach(m=>s+=`<text x="${x(m)}" y="${H-6}" text-anchor="middle">${m.toLocaleDateString('en-GB',{month:'short'})}</text>`);
   series.forEach(se=>{if(!se.pts.length)return;
     const d=se.pts.map((p,i)=>(i?'L':'M')+x(p[0]).toFixed(1)+' '+y(p[1]).toFixed(1)).join(' ');
