@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shubhangi's 18-Day Plan · 28 Sep – 15 Oct</title>
+<style>
+  :root{--bg:#f6f5f1;--surface:#fff;--ink:#1a1a19;--ink2:#5c5b55;--muted:#8a897f;--line:#e4e2da;
+    --s1:#2a78d6;--s1-soft:#cde2fb;--s2:#eb6834;--good:#0ca30c;--good-ink:#006300;--crit:#d03b3b;--warn:#eda100;--radius:14px}
+  @media (prefers-color-scheme:dark){:root{--bg:#121211;--surface:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--muted:#8f8e85;--line:#2e2e2b;--s1:#3987e5;--s1-soft:#1c3a5e;--s2:#d95926;--good-ink:#0ca30c}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+  header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px;margin-bottom:18px}
+  h1{font-size:24px;margin:0}
+  .sub{color:var(--ink2);font-size:14px}
+  h2{font-size:16px;margin:0 0 12px}
+  .grid{display:grid;gap:14px}
+  .kpis{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .two{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+  .kpi .label{color:var(--ink2);font-size:13px}
+  .kpi .val{font-size:28px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+  .kpi .note{color:var(--muted);font-size:12px}
+  .today{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .today .plan{font-size:18px;font-weight:600}
+  .pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid var(--line);color:var(--ink2)}
+  form{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));align-items:end}
+  label{font-size:13px;color:var(--ink2);display:grid;gap:4px}
+  input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 10px;width:100%}
+  textarea{min-height:40px}
+  .chk{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ink)}
+  .chk input{width:20px;height:20px}
+  button{font:inherit;font-weight:600;border:0;border-radius:10px;padding:10px 16px;background:var(--s1);color:#fff;cursor:pointer}
+  button.ghost{background:transparent;color:var(--ink2);border:1px solid var(--line)}
+  .msg{font-size:13px;color:var(--good-ink);min-height:18px}
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  svg text{fill:var(--muted);font-size:11px}
+  .axis line,.grid-l{stroke:var(--line)}
+  .legend{display:flex;gap:14px;font-size:12px;color:var(--ink2);margin-top:6px}
+  .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+  .tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--surface);font-size:12px;padding:6px 9px;border-radius:8px;opacity:0;transition:opacity .1s;z-index:9;white-space:nowrap}
+  .topics{display:grid;gap:10px}
+  .trow{display:grid;grid-template-columns:minmax(110px,1.2fr) 3fr auto;gap:10px;align-items:center;font-size:14px}
+  .trow .name{font-weight:600}
+  .trow .w{color:var(--muted);font-size:12px;font-weight:400}
+  .bar{height:12px;background:var(--line);border-radius:6px;overflow:hidden;cursor:pointer}
+  .bar > span{display:block;height:100%;background:var(--s1);border-radius:6px 4px 4px 6px}
+  .status{font-size:12px;border:1px solid var(--line);border-radius:8px;padding:4px 6px;background:var(--bg);width:auto}
+  .timeline{display:flex;height:34px;border-radius:10px;overflow:hidden;position:relative;margin-top:6px}
+  .timeline div{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;border-right:2px solid var(--surface)}
+  .tl-now{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--ink);border-radius:2px}
+  .tl-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:6px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--ink2);font-weight:600}
+  td.num{font-variant-numeric:tabular-nums;text-align:right}
+  .scroll{max-height:360px;overflow:auto}
+  .heat{display:grid;grid-template-rows:repeat(7,12px);grid-auto-flow:column;grid-auto-columns:12px;gap:3px;overflow-x:auto;padding-bottom:4px}
+  .heat span{border-radius:3px;background:var(--line)}
+  .muted{color:var(--muted);font-size:13px}
+  .ok{color:var(--good-ink)}.bad{color:var(--crit)}
+  section{margin-top:14px}
+  footer{margin-top:24px;color:var(--muted);font-size:12px}
+</style>
+<style>
+  .days{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 8px;scroll-snap-type:x mandatory}
+  .dbtn{flex:0 0 58px;scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 4px;text-align:center;color:var(--ink);font-weight:500;cursor:pointer}
+  .dbtn .dw{font-size:11px;color:var(--muted)} .dbtn .dn{font-size:17px;font-weight:700}
+  .dbtn .dp{height:4px;background:var(--line);border-radius:2px;margin:4px 6px 0;overflow:hidden}.dbtn .dp span{display:block;height:100%;background:var(--good)}
+  .dbtn.sel{border-color:var(--s1);box-shadow:0 0 0 2px var(--s1) inset}
+  .dbtn.today .dw{color:var(--s1);font-weight:700}
+  .slots{display:grid;gap:8px}
+  .slot{display:grid;grid-template-columns:92px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+  .slot .t{font-variant-numeric:tabular-nums;font-weight:600;font-size:13px;color:var(--ink2)}
+  .slot .what{font-weight:600}.slot .det{font-size:13px;color:var(--muted)}
+  .slot.now{border-color:var(--s1);box-shadow:0 0 0 2px var(--s1) inset}
+  .slot.done{background:color-mix(in srgb,var(--good) 10%,var(--surface))}
+  .slot.done .what{text-decoration:line-through;text-decoration-color:var(--muted)}
+  .slot.key{border-left:5px solid var(--s2)}
+  .tick{width:44px;height:44px;border-radius:12px;border:2px solid var(--line);background:var(--bg);font-size:20px;display:grid;place-items:center;padding:0;color:var(--ink)}
+  .tick.s1{border-color:var(--warn);background:color-mix(in srgb,var(--warn) 18%,var(--bg))}
+  .tick.s2{border-color:var(--good);background:var(--good);color:#fff}
+  .cat{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr));gap:6px}
+  .vgrid button{padding:8px 0;background:var(--bg);color:var(--ink2);border:1px solid var(--line);font-size:13px;border-radius:8px}
+  .vgrid button.on{background:var(--good);border-color:var(--good);color:#fff}
+  .vgrid button.cur{border-color:var(--s1);border-width:2px}
+  .bars{display:flex;align-items:flex-end;gap:4px;height:150px;border-bottom:1px solid var(--line)}
+  .bars div{flex:1;background:var(--s1);border-radius:4px 4px 0 0;min-height:2px;position:relative}
+  .bars div.fut{background:var(--line)}
+  .blbl{display:flex;gap:4px;font-size:10px;color:var(--muted);margin-top:4px}.blbl span{flex:1;text-align:center}
+  .nav{font-size:13px}.nav a{color:var(--s1)}
+  @media (max-width:520px){.slot{grid-template-columns:70px 1fr auto;gap:8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><h1>My 18-Day Plan</h1><div class="sub">Shubhangi · 28 Sep → 15 Oct 2026 · tap ☐ once for half done, twice for done</div></div>
+    <div class="nav"><a href="../">← CFA tracker</a></div>
+  </header>
+  <div class="grid kpis" id="kpis"></div>
+  <section class="card"><h2 id="dayTitle"></h2><div class="days" id="days"></div>
+    <div class="muted" id="dayNote" style="margin:4px 0 12px"></div>
+    <div class="slots" id="slots"></div></section>
+  <div class="grid two" style="margin-top:14px">
+    <section class="card" style="margin:0"><h2>Daily completion</h2><div class="bars" id="bars"></div><div class="blbl" id="blbl"></div>
+      <div class="muted" style="margin-top:8px">% of each day's hourly slots done (half-done counts as 50%).</div></section>
+    <section class="card" style="margin:0"><h2>By area</h2><div class="topics" id="areas"></div></section>
+  </div>
+  <section class="card"><h2>FinSchool Equity Research: <span id="vcount"></span> of 51 videos</h2>
+    <div class="bar" style="cursor:default;margin-bottom:12px"><span id="vbar" style="width:0;background:var(--good)"></span></div>
+    <div class="vgrid" id="vgrid"></div><div class="muted" style="margin-top:8px">Tap a video when you finish it. Target: 1–17 Mon, 18–34 Tue, 35–51 Wed.</div></section>
+  <footer>Your ticks save on this device. Anything you tell Hyv on WhatsApp is added for every device.
+    <button class="ghost" id="reset" style="padding:4px 10px;font-size:12px">Clear this day</button></footer>
+</div>
+<div class="tip" id="tip"></div>
+<script>
+const KEY='plan-oct15-v1',$=s=>document.querySelector(s),DAY=864e5;
+const iso=d=>{const z=new Date(d.getTime()-d.getTimezoneOffset()*6e4);return z.toISOString().slice(0,10)};
+const toD=s=>new Date(s+'T00:00:00');
+const CAT={cfa:['CFA','var(--s1)'],er:['Equity Research','#1baf7a'],gym:['Gym','var(--s2)'],padel:['Padel','#9b59d0'],home:['Chores','var(--warn)'],life:['Life admin','var(--muted)']};
+const START='2026-09-28',END='2026-10-15';
+const DATES=[];for(let d=toD(START);iso(d)<=END;d=new Date(d.getTime()+DAY))DATES.push(iso(d));
+const GYM=[1,2,4,5,0],PADEL=[3,6];
+function topic(ds){return ds<'2026-10-12'?'Economics':'Financial Statement Analysis'}
+function vids(ds,part){const i=DATES.indexOf(ds);const b=i*17;const cuts=[[1,3],[4,6],[7,9],[10,12],[13,15],[16,17]];const c=cuts[part];return [b+c[0],b+c[1]]}
+function build(ds){
+  const w=toD(ds).getDay(),T=topic(ds),S=[];const add=(id,t,c,what,det,key)=>S.push({id,t,c,what,det,key});
+  const er=ds<='2026-09-30';
+  if(GYM.includes(w))add('gym','07:00–08:00','gym','Gym','Workout, 1 hr');
+  if(![6].includes(w)&&ds!=='2026-10-01')add('home','08:30–09:15','home','Household chores','45 min: tidy, dishes, kitchen');
+  if(er){
+    [['0930','09:30–10:30'],['1030','10:30–11:30'],['1130','11:30–12:30']].forEach(([id,t],k)=>{const v=vids(ds,k);add('er'+id,t,'er',`Equity Research: videos ${v[0]}–${v[1]}`,'FinSchool · 1.5x speed · one line of notes per video')});
+    add('quiz','14:00–14:15','cfa','CFA daily quiz','5 MCQs from Hyv');
+    [['1500','15:00–16:00'],['1600','16:00–17:00'],['1700','17:00–17:30']].forEach(([id,t],k)=>{const v=vids(ds,k+3);add('er'+id,t,'er',`Equity Research: videos ${v[0]}–${v[1]}`,k===2&&ds==='2026-09-30'?'…then a 30-min recap of your notes':'FinSchool · 1.5x speed')});
+    if(ds==='2026-09-30'){add('padel','18:30–20:00','padel','Padel','');add('cfa2015','20:15–21:15','cfa','CFA Economics',`1 hr: read + 10 practice Qs`);add('pack','21:15–22:00','life','Pack for the Airbnb','Move-in tomorrow 3 PM',1)}
+    else{add('cfa1830','18:30–19:30','cfa','CFA Economics','Hour 1: reading');add('cfa1930','19:30–20:30','cfa','CFA Economics','Hour 2: practice questions')}
+  }else if(ds==='2026-10-01'){
+    ['09:30','10:30','11:30'].forEach((h,k)=>add('cfa'+h.replace(':',''),`${h}–${['10:30','11:30','12:30'][k]}`,'cfa','CFA Economics',['Reading','Reading + notes','Practice questions'][k]));
+    add('quiz','14:00–14:15','cfa','CFA daily quiz','5 MCQs from Hyv');
+    add('move','15:00–16:00','life','Airbnb check-in, Dubai Marina','Confirmation HMQ83WQ8H3 · host Mohamed +971 50 467 5903',1);
+    add('unpack','16:00–17:30','home','Unpack + set up study desk','');
+    add('cfa1830','18:30–19:30','cfa','CFA Economics','Hour 4: flashcards + review');
+  }else{
+    const pad=PADEL.includes(w),sun=w===0;
+    const hrs=pad?[['0930','09:30–10:30'],['1030','10:30–11:30'],['1130','11:30–12:30'],['1415','14:15–15:15']]
+      :[['0930','09:30–10:30'],['1030','10:30–11:30'],['1130','11:30–12:30'],['1415','14:15–15:15'],['1515','15:15–16:15'],['1615','16:15–16:45']];
+    const kinds=['Reading','Reading + notes','Practice questions','Practice questions','Review mistakes','Flashcards (30 min)'];
+    if(ds==='2026-10-11'){kinds[2]='Economics test: 30 questions';kinds[3]='Review the test'}
+    if(ds==='2026-10-12')kinds[0]='FSA starts! Reading';
+    add('quiz','14:00–14:15','cfa','CFA daily quiz','5 MCQs from Hyv');
+    hrs.forEach(([id,t],k)=>add('cfa'+id,t,'cfa','CFA '+(T==='Economics'?'Economics':'FSA'),kinds[k]));
+    if(ds==='2026-10-02')add('reg','13:00–13:30','life','⭐ Register for CFA May 2027','cfainstitute.org · deadline 14 Oct',1);
+    if(ds==='2026-10-14')add('reg','13:00–13:30','life','⭐ CFA registration deadline','Only if you haven’t registered yet',1);
+    if(w===6)add('home2','16:00–17:30','home','Weekly chores','Groceries + laundry');
+    if(pad)add('padel','18:30–20:00','padel','Padel','');
+    if(sun)add('review','17:00–17:30','life','Weekly review','What worked, what to change next week');
+    if(ds==='2026-10-15')add('pack','18:00–19:30','life','Pack for Nagpur','Flight G9 415 · 16 Oct 00:40',1);
+  }
+  add('checkin','21:00–21:15','life','Evening check-in','Reply to Hyv’s message on WhatsApp');
+  return S.sort((a,b)=>a.t<b.t?-1:1);
+}
+let base={marks:{},videos:[]},local=JSON.parse(localStorage.getItem(KEY)||'{"marks":{},"videos":{}}');
+const save=()=>localStorage.setItem(KEY,JSON.stringify(local));
+const mark=(ds,id)=>{const k=ds+'|'+id;return k in local.marks?local.marks[k]:(base.marks[k]||0)};
+const vdone=n=>(n in local.videos)?local.videos[n]:base.videos.includes(n);
+const dayPct=ds=>{const s=build(ds);return s.reduce((a,x)=>a+mark(ds,x.id)/2,0)/s.length};
+const today=iso(new Date());
+let sel=today<START?START:today>END?END:today;
+function nowIn(t){if(sel!==today)return false;const [a,b]=t.split('–');const n=new Date().toTimeString().slice(0,5);return n>=a&&n<b}
+function render(){
+  const S=build(sel),d=toD(sel);
+  $('#dayTitle').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})+(sel===today?' · Today':'');
+  $('#days').innerHTML=DATES.map(ds=>{const x=toD(ds);return `<button class="dbtn ${ds===sel?'sel':''} ${ds===today?'today':''}" data-d="${ds}"><div class="dw">${ds===today?'Today':x.toLocaleDateString('en-GB',{weekday:'short'})}</div><div class="dn">${x.getDate()}</div><div class="dp"><span style="width:${dayPct(ds)*100}%"></span></div></button>`}).join('');
+  document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{sel=b.dataset.d;render()});
+  const done=S.filter(x=>mark(sel,x.id)===2).length;
+  $('#dayNote').innerHTML=`<b>${done} of ${S.length}</b> slots done · ${Math.round(dayPct(sel)*100)}% complete`;
+  $('#slots').innerHTML=S.map(x=>{const m=mark(sel,x.id);return `<div class="slot ${m===2?'done':''} ${nowIn(x.t)?'now':''} ${x.key?'key':''}"><div class="t">${x.t}${nowIn(x.t)?'<br><span style="color:var(--s1)">now</span>':''}</div>
+    <div><div class="what"><span class="cat" style="background:${CAT[x.c][1]}"></span>${x.what}</div>${x.det?`<div class="det">${x.det}</div>`:''}</div>
+    <button class="tick s${m}" data-id="${x.id}" aria-label="mark ${x.what}">${['','◐','✓'][m]}</button></div>`}).join('');
+  document.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>{const k=sel+'|'+b.dataset.id;local.marks[k]=(mark(sel,b.dataset.id)+1)%3;save();render()});
+  // kpis
+  const past=DATES.filter(ds=>ds<=today);let tot=0,got=0;DATES.forEach(ds=>build(ds).forEach(x=>{tot++;got+=mark(ds,x.id)/2}));
+  const vc=Array.from({length:51},(_,i)=>i+1).filter(vdone).length;
+  const daysLeft=Math.max(0,Math.round((toD(END)-toD(today))/DAY)+1);
+  const pp=past.length?past.reduce((a,ds)=>a+dayPct(ds),0)/past.length:null;
+  $('#kpis').innerHTML=[['Overall plan done',Math.round(got/tot*100)+'%',`${Math.round(got)} of ${tot} slots`],
+    ['Today',Math.round(dayPct(today>=START&&today<=END?today:sel)*100)+'%',today<START?'plan starts Mon 28 Sep':''],
+    ['Avg so far',pp==null?'–':Math.round(pp*100)+'%',past.length+' days in'],
+    ['Equity Research',vc+' / 51','videos watched'],['Days left',Math.min(daysLeft,DATES.length),'until 15 Oct']]
+    .map(([l,v,n])=>`<div class="card kpi"><div class="label">${l}</div><div class="val">${v}</div><div class="note">${n}</div></div>`).join('');
+  // bars
+  $('#bars').innerHTML=DATES.map(ds=>{const p=dayPct(ds);return `<div class="${ds>today?'fut':''}" style="height:${Math.max(p*100,ds>today?3:1.5)}%" data-tip="<b>${toD(ds).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</b> · ${Math.round(p*100)}% done"></div>`}).join('');
+  $('#blbl').innerHTML=DATES.map(ds=>`<span>${toD(ds).getDate()}</span>`).join('');
+  // areas
+  const A={};DATES.forEach(ds=>build(ds).forEach(x=>{A[x.c]=A[x.c]||{t:0,g:0};A[x.c].t++;A[x.c].g+=mark(ds,x.id)/2}));
+  const unit={cfa:'CFA slots',er:'ER slots',gym:'gym sessions',padel:'padel sessions',home:'chore slots',life:'tasks'};
+  $('#areas').innerHTML=Object.keys(CAT).filter(k=>A[k]).map(k=>`<div class="trow"><div class="name"><span class="cat" style="background:${CAT[k][1]}"></span>${CAT[k][0]}</div>
+    <div class="bar" style="cursor:default"><span style="width:${A[k].g/A[k].t*100}%;background:${CAT[k][1]}"></span></div><div class="muted" style="text-align:right;min-width:70px">${+A[k].g.toFixed(1)}/${A[k].t}</div></div>`).join('');
+  // videos
+  const tgt=today<START?0:Math.min(51,(DATES.indexOf(today)+1)*17);
+  $('#vcount').textContent=vc;$('#vbar').style.width=vc/51*100+'%';
+  $('#vgrid').innerHTML=Array.from({length:51},(_,i)=>i+1).map(n=>`<button class="${vdone(n)?'on':''} ${n===vc+1?'cur':''}" data-v="${n}">${n}</button>`).join('');
+  document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{const n=+b.dataset.v;local.videos[n]=!vdone(n);save();render()});
+  document.querySelectorAll('[data-tip]').forEach(r=>{r.onmousemove=e=>{const t=$('#tip');t.innerHTML=r.dataset.tip;t.style.opacity=1;t.style.left=Math.min(e.clientX+12,innerWidth-t.offsetWidth-8)+'px';t.style.top=(e.clientY-36)+'px'};r.onmouseleave=()=>$('#tip').style.opacity=0});
+  setTimeout(()=>{const s=document.querySelector('.dbtn.sel');s&&s.scrollIntoView({inline:'center',block:'nearest'})},0);
+}
+$('#reset').onclick=()=>{if(!confirm('Clear all ticks for this day?'))return;build(sel).forEach(x=>local.marks[sel+'|'+x.id]=0);save();render()};
+fetch('data.json',{cache:'no-store'}).then(r=>r.json()).then(j=>{base=j;render()}).catch(render);render();
+setInterval(render,60000);
+</script>
+</body>
+</html>
